@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.summingInt;
-
 public interface Statistics<T> {
 
     T analyse(String text);
@@ -19,7 +17,6 @@ public interface Statistics<T> {
                 .filter(e -> e.length() >= 1)
                 .collect(Collectors.groupingBy(
                         Function.identity(), Collectors.counting()));
-
-
     }
+
 }
