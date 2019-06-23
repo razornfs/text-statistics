@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MostPopularWordsStatistics implements Statistics<List<Map.Entry<String, Long>>> {
+public class MostPopularWordsStatistics implements Statistics<List<String>> {
 
     @Override
-    public List<Map.Entry<String, Long>> analyse(String text) {
+    public List<String> analyse(String text) {
         return Statistics.getWordsMap(text).entrySet().stream()
         .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-        .limit(3)
+        .limit(10)
+         .map(e -> e.getKey())
         .collect(Collectors.toList());
 
     }
@@ -18,11 +19,14 @@ public class MostPopularWordsStatistics implements Statistics<List<Map.Entry<Str
     @Override
     public String interpret(String text) {
 
-        return String.format("Najpopularniejsze słowa to %s, %s, %s",
-                analyse(text).get(0).getKey(),
-                analyse(text).get(1).getKey(),
-                analyse(text).get(2).getKey()
-                );
+        StringBuilder sb = new StringBuilder();
+        sb.append("Najpopularniejsze słowa to: ");
 
+        for(String i : analyse(text)){
+            sb.append(i);
+            sb.append(" ");
+        }
+
+        return sb.toString().trim();
     }
 }
