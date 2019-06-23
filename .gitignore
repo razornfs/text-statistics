@@ -2,6 +2,8 @@
 .gradle
 gradle
 
+.idea
+
 # Compiled class file
 *.class
 
