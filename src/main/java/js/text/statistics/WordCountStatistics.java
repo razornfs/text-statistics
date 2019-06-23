@@ -1,4 +1,6 @@
 package js.text.statistics;
 
-public class WordCountStatistics {
-}
+public class WordCountStatistics{}//implements Statistics<>{
+
+
+

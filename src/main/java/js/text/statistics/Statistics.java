@@ -12,13 +12,13 @@ public interface Statistics<T> {
     T analyse(String text);
     String interpret(String text);
 
-    static Map<String, Integer> getWordsMap(String input){
+    static Map<String, Long> getWordsMap(String input){
         input = input.toLowerCase().replaceAll("[^a-z\\s]+","");
         return Arrays.stream(
                 input.split(" "))
                 .filter(e -> e.length() >= 1)
                 .collect(Collectors.groupingBy(
-                        Function.identity(), summingInt(e -> 1)));
+                        Function.identity(), Collectors.counting()));
 
 
     }

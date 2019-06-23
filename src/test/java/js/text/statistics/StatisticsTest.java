@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class StatisticsTest {
 
     @Test
-    public void getWordsMap_test(){
+    public void testSomething(){
         String text = "Ala ala ma kota.";
         Map<String, Integer> wordCounts = new HashMap<>();
         wordCounts.put("ala",2);
