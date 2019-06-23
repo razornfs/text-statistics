@@ -12,7 +12,7 @@ public class LongestWordsStatistics implements Statistics<List<String>> {
                 .entrySet()
                 .stream()
                 .filter(e -> e.getValue() == 1)
-                .sorted((x,y) -> x.getKey().length() - y.getKey().length())
+                .sorted((x,y) -> y.getKey().length() - x.getKey().length())
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
