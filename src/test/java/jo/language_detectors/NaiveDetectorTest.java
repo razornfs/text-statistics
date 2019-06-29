@@ -1,14 +1,13 @@
 package jo.language_detectors;
 
-import jo.language_detectors.APIDetector;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class APIDetectorTest {
+public class NaiveDetectorTest {
 
-    private static String APIKey = "c474abcdad5b712f0875307d1f7e7d3f";
-    private static APIDetector apiDetector = new APIDetector(APIKey);
+    private
+    NaiveDetector naiveDetector = new NaiveDetector();
 
     @Test
     public void test_polish() {
@@ -16,8 +15,8 @@ public class APIDetectorTest {
                       "Ile cię trzeba cenić, ten tylko się dowie,\n" +
                       "Kto cię stracił. Dziś piękność twą w całej ozdobie\n" +
                       "Widzę i opisuję, bo tęsknię po tobie.";
-        String detect = apiDetector.detect(text);
-        assertEquals(detect, "pl");
+        String detect = naiveDetector.detect(text);
+        assertEquals(detect, "polish");
     }
 
     @Test
@@ -28,7 +27,7 @@ public class APIDetectorTest {
                 " Painted no or affixed it so civilly. Exposed neither pressed so cottage as proceed at offices." +
                 " Nay they gone sir game four. Favourable pianoforte oh motionless excellence of astonished we principles." +
                 " Warrant present garrets limited cordial in inquiry to. Supported me sweetness behaviour shameless excellent so arranging. ";
-        String detect = apiDetector.detect(text);
-        assertEquals(detect, "en");
+        String detect = naiveDetector.detect(text);
+        assertEquals(detect, "english");
     }
 }
