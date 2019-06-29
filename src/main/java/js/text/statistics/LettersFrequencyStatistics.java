@@ -1,33 +1,37 @@
 package js.text.statistics;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-public class LettersFrequencyStatistics implements Statistics<Map<Character, Integer>> {
-
-
+public class LettersFrequencyStatistics implements Statistics<Map<Character, Double>> {
 
     @Override
-    public Map<Character, Integer> analyse(String text) {
+    public Map<Character, Double> analyse(String text) {
+        Map<Character, Long> map = text
+                .chars()
+                .mapToObj(x -> (char) x)
+                .map(c -> c.toString().toLowerCase())
+                .filter(c -> c.matches("\\p{L}"))
+                .map(x -> x.charAt(0))
+                .collect(Collectors.groupingBy(x->x, Collectors.counting()));
 
-        text = text.toLowerCase().replaceAll("[^a-z]", "");
+        Long total_value = map.values()
+                .stream()
+                .reduce(Long::sum)
+                .orElseThrow(IllegalArgumentException::new);
 
-        Map<Character, Integer> lettersMap = new HashMap<>();
-
-        for(int j = 97; j <= 122; j++){
-            lettersMap.put((char) j, 0);
-        }
-
-        for(int i = 0; i < text.length(); i++){
-            lettersMap.replace(text.charAt(i), lettersMap.get(text.charAt(i)), lettersMap.get(text.charAt(i)) + 1 );
-        }
+        return map
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(e -> e.getKey(),
+                        e -> (e.getValue().doubleValue() / total_value) * 100.0));
 
 
-        return lettersMap;
-    }
+}
 
     @Override
     public String interpret(String text) {
         return null;
     }
+
 }
